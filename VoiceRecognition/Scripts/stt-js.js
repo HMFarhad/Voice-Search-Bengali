@@ -9,7 +9,7 @@ catch (e) {
 }
 
 
-var noteTextarea = $('#note-textarea');
+var noteTextarea = $('#voiceRendered');
 var instructions = $('#recording-instructions');
 var notesList = $('ul#notes');
 
@@ -53,7 +53,7 @@ recognition.onresult = function (event) {
 };
 
 recognition.onstart = function () {
-    instructions.text('Voice recognition activated. Try speaking into the microphone.');
+    instructions.text('Listening......');
 }
 
 recognition.onspeechend = function () {
@@ -77,6 +77,7 @@ $('#start-record-btn').on('click', function (e) {
         noteContent += ' ';
     }
     recognition.start();
+    // $("#start-record-btn").text("Listening...")
 });
 
 
@@ -88,13 +89,14 @@ $('#pause-record-btn').on('click', function (e) {
 // Sync the text inside the text area with the noteContent variable.
 noteTextarea.on('input', function () {
     noteContent = $(this).val();
+
 })
 
 $('#save-note-btn').on('click', function (e) {
     recognition.stop();
 
     if (!noteContent.length) {
-        instructions.text('Could not save empty note. Please add a message to your note.');
+        instructions.text('Could not search empty voices.');
     }
     else {
         // Save note to localStorage.
@@ -105,7 +107,7 @@ $('#save-note-btn').on('click', function (e) {
         noteContent = '';
         renderNotes(getAllNotes());
         noteTextarea.val('');
-        instructions.text('Note saved successfully.');
+        instructions.text('Voice saved successfully.');
     }
 
 })
@@ -160,7 +162,7 @@ function renderNotes(notes) {
             html += `<li class="note">
         <p class="header">
           <span class="date">${note.date}</span>
-          <a href="#" class="listen-note" title="Listen to Note">Listen to Note</a>
+          <a href="#" class="listen-note" title="Listen to Note">Listen to Search</a>
           <a href="#" class="delete-note" title="Delete">Delete</a>
         </p>
         <p class="content">${note.content}</p>
@@ -168,7 +170,7 @@ function renderNotes(notes) {
         });
     }
     else {
-        html = '<li><p class="content">You don\'t have any notes yet.</p></li>';
+        html = '<li><p class="content">You have not searched any flight yet.</p></li>';
     }
     notesList.html(html);
 }

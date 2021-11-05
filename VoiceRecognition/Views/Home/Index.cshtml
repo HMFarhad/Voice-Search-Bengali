@@ -1,34 +1,48 @@
-﻿@{
+﻿@model VoiceRecognition.Models.VoiceSearchViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="row">
     <div class="container">
+        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "VoiceForm" }))
+        {
+            <div class="app">
+                <label class="control-label">Say something...?</label>
+                <div class="input-single form-control''" style="width:inherit!important">
+                    <textarea id="voiceRendered" name="voiceRendered" value="@Model.voiceRendered" placeholder="" rows="6" style="width:295px"></textarea>
+                </div>
+                <button type="button" id="start-record-btn" title="Start Recording" class="btn btn-info">Start Listening</button>
+                <button type="button" id="pause-record-btn" title="Pause Recording" class="btn btn-danger">Pause Listening</button>
+                @*<button type="submit" id="save-note-btn" title="Save Note" class="btn btn-success">Search </button>*@
+                <button type="submit" class="btn btn-success">Search </button>
+                <p id="recording-instructions" class="panel-info">Press the <strong>Start Listening</strong> button and allow access.</p>
 
-        <h1>@*Voice Controlled App*@</h1>
-
-        @*<h3 class="no-browser-support">Sorry, Your Browser Doesn't Support the Web Speech API. Try Opening This Demo In Google Chrome.</h3>*@
-
-        <div class="app">
-            <label class="control-label">Say something...?</label>
-            <div class="input-single form-control''">
-                <textarea id="note-textarea" placeholder="Click on the 'Start' button to start voice recognition..." rows="6"></textarea>
+                <h3>Recent Search</h3>
+                <ul id="notes">
+                    <li>
+                        <p class="no-notes">You have not searched any flight.</p>
+                    </li>
+                </ul>
             </div>
-            <button id="start-record-btn" title="Start Recording" class="btn btn-success">Start Recognition</button>
-            <button id="pause-record-btn" title="Pause Recording" class="btn btn-danger">Pause Recognition</button>
-            <button id="save-note-btn" title="Save Note" class="btn-default">Save Note</button>
-            <p id="recording-instructions"class="panel-info">Press the <strong>Start Recognition</strong> button and allow access.</p>
-
-            <h3>Voice Clip</h3>
-            <ul id="notes">
-                <li>
-                    <p class="no-notes">You don't have any notes.</p>
-                </li>
-            </ul>
-
+        }
         </div>
 
-    </div>
-
 </div>
+
 <script src="~/Scripts/stt-js.js"></script>
+
+<script>
+    $(document).ready(function () {
+       //$("#start-record-btn").click().trigger();
+        // console.log("ready!");
+        //var url = 'https://translate.google.com/?sl=bn&tl=en&text=%20ami%20dhaka%20jabo%20&op=translate';
+        //recognition.onspeechend = function () {
+        //    //alert(noteContent);
+        //    $.get(url, function (data, status) {
+        //        console.log("Data: " + data + "\nStatus: " + status);
+        //        $('#voiceRendered').val(data);
+        //    });
+        //}
+    });
+</script>
