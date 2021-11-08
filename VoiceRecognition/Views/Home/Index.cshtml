@@ -3,46 +3,438 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="row">
-    <div class="container">
-        @using (Html.BeginForm("Index", "Home", FormMethod.Post, new { id = "VoiceForm" }))
-        {
-            <div class="app">
-                <label class="control-label">Say something...?</label>
-                <div class="input-single form-control''" style="width:inherit!important">
-                    <textarea id="voiceRendered" name="voiceRendered" value="@Model.voiceRendered" placeholder="" rows="6" style="width:295px"></textarea>
-                </div>
-                <button type="button" id="start-record-btn" title="Start Recording" class="btn btn-info">Start Listening</button>
-                <button type="button" id="pause-record-btn" title="Pause Recording" class="btn btn-danger">Pause Listening</button>
-                @*<button type="submit" id="save-note-btn" title="Save Note" class="btn btn-success">Search </button>*@
-                <button type="submit" class="btn btn-success">Search </button>
-                <p id="recording-instructions" class="panel-info">Press the <strong>Start Listening</strong> button and allow access.</p>
-
-                <h3>Recent Search</h3>
-                <ul id="notes">
-                    <li>
-                        <p class="no-notes">You have not searched any flight.</p>
-                    </li>
-                </ul>
-            </div>
-        }
+<!-- Banner Section Start -->
+<section class="banner">
+    <div class="banner-wrapper">
+        <div class="inner-banner owl-carousel owl-theme">
+            <img class="owl-lazy" data-src="images/main-slider/air1.jpg" alt="">
+            <img class="owl-lazy" data-src="images/main-slider/air4.jpg" alt="">
+            <img class="owl-lazy" data-src="images/main-slider/air5.jpg" alt="">
         </div>
+    </div>
+    <div class="search-tabs">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="tabs-wrapper tabs-box">
+                        <!--Tab Btns-->
+                        <ul class="tabs tab-buttons clearfix">
+                            <li data-tab="#tab1" class="tab-btn active-btn">Flights</li>
+                        </ul>
+                        <div class="tab-container">
+                            <!-- Tab Item -->
+                            <div class="tab-content active-tab" id="tab1">
+                                <div class="content">
+                                    <!-- Inner Tab Start -->
+                                    <div class="itabs-wrapper itabs-box">
+                                        <!--Tab Btns-->
+                                        <ul class="itabs itab-buttons clearfix">
+                                            <li data-tab="#itab1" class="itab-btn active-ibtn">One Way</li>
+                                            <li data-tab="#itab2" class="itab-btn">Round Trip</li>
+                                            <li data-tab="#itab3" class="itab-btn">Multi City</li>
+                                        </ul>
+                                        <div class="itab-container">
+                                            <!-- One Way Tab Item -->
+                                            <div class="itab-content active-itab" id="itab1">
+                                                <div class="icontent">
+                                                    <div class="one-way">
+                                                        <form>
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-4">
+                                                                    <select class="form-control">
+                                                                        <option selected="">From</option>
+                                                                        <option>...</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <select class="form-control">
+                                                                        <option selected="">To</option>
+                                                                        <option>...</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <input placeholder="Depart" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <a href="javascript:void(0)" class="travelers">Travelers, Economy</a>
+                                                                    <div class="travelers-counter">
+                                                                        <!-- Adults Counter -->
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">  
+                                                                                    <p>Adults (12+) </p>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class='main-counter text-right'>
+                                                                                        <a class='cbtn cbtn1 down_count1' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                        <input class='counter counter1' type="text" placeholder="value..." value='0' />
+                                                                                        <a class='cbtn cbtn1 up_count1' title='Up'><i class='fa fa-plus'></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Children  Counter -->
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <p>Children  (2-11) </p>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class='main-counter text-right'>
+                                                                                        <a class='cbtn cbtn2 down_count2' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                        <input class='counter counter2' type="text" placeholder="value..." value='0' />
+                                                                                        <a class='cbtn cbtn2 up_count2' title='Up'><i class='fa fa-plus'></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Infants  Counter -->
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <p>Infants (0-2) </p>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class='main-counter text-right'>
+                                                                                        <a class='cbtn cbtn3 down_count3' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                        <input class='counter counter3' type="text" placeholder="value..." value='0' />
+                                                                                        <a class='cbtn cbtn3 up_count3' title='Up'><i class='fa fa-plus'></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label>Classs</label>
+                                                                                    <select class="form-control sld">
+                                                                                        <option selected="">Choose...</option>
+                                                                                        <option selected="">Economy</option>
+                                                                                        <option selected="">Business</option>
+                                                                                        <option>...</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <a href="javascript:void(0)" class="search">Search</a>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Round Trip Tab Item -->
+                                            <div class="itab-content" id="itab2">
+                                                <div class="icontent">
+                                                    <div class="round-trip">
+                                                        <form>
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-4">
+                                                                    <select id="inputState" class="form-control">
+                                                                        <option selected="">From</option>
+                                                                        <option>...</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <select id="inputState" class="form-control">
+                                                                        <option selected="">To</option>
+                                                                        <option>...</option>
+                                                                    </select>
+                                                                </div>
 
-</div>
+                                                                <div class="form-group col-md-4">
+                                                                    <a href="javascript:void(0)" class="travelers">Travelers, Economy</a>
+                                                                    <div class="travelers-counter">
+                                                                        <!-- Adults Counter -->
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <p>Adults (12+) </p>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class='main-counter text-right'>
+                                                                                        <a class='cbtn cbtn1 down_count1' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                        <input class='counter counter1' type="text" placeholder="value..." value='0' />
+                                                                                        <a class='cbtn cbtn1 up_count1' title='Up'><i class='fa fa-plus'></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Children  Counter -->
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <p>Children  (2-11) </p>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class='main-counter text-right'>
+                                                                                        <a class='cbtn cbtn2 down_count2' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                        <input class='counter counter2' type="text" placeholder="value..." value='0' />
+                                                                                        <a class='cbtn cbtn2 up_count2' title='Up'><i class='fa fa-plus'></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Infants  Counter -->
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <p>Infants (0-2) </p>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class='main-counter text-right'>
+                                                                                        <a class='cbtn cbtn3 down_count3' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                        <input class='counter counter3' type="text" placeholder="value..." value='0' />
+                                                                                        <a class='cbtn cbtn3 up_count3' title='Up'><i class='fa fa-plus'></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label>Classs</label>
+                                                                                    <select class="form-control sld">
+                                                                                        <option selected="">Choose...</option>
+                                                                                        <option selected="">Economy</option>
+                                                                                        <option selected="">Business</option>
+                                                                                        <option>...</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <input placeholder="Depart" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <input placeholder="Return" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                                </div>
+                                                                <div class="form-group col-md-4">
+                                                                    <a href="javascript:void(0)" class="search">Search</a>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Multi City Tab Item -->
+                                            <div class="itab-content" id="itab3">
+                                                <div class="icontent">
+                                                    <div class="multi-trip">
+                                                        <form>
+                                                            <div class="form-row">
+                                                                <div class="form-group col-md-3">
+                                                                    <select class="form-control">
+                                                                        <option selected="">From</option>
+                                                                        <option>...</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-3">
+                                                                    <select class="form-control">
+                                                                        <option selected="">To</option>
+                                                                        <option>...</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-3">
+                                                                    <input placeholder="Depart" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                                </div>
+                                                                <div class="form-group col-md-3">
+                                                                    <a href="javascript:void(0)" class="travelers">Travelers, Economy</a>
+                                                                    <div class="travelers-counter">
+                                                                        <!-- Adults Counter -->
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <p>Adults (12+) </p>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class='main-counter text-right'>
+                                                                                        <a class='cbtn cbtn1 down_count1' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                        <input class='counter counter1' type="text" placeholder="value..." value='0' />
+                                                                                        <a class='cbtn cbtn1 up_count1' title='Up'><i class='fa fa-plus'></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Children  Counter -->
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <p>Children  (2-11) </p>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class='main-counter text-right'>
+                                                                                        <a class='cbtn cbtn2 down_count2' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                        <input class='counter counter2' type="text" placeholder="value..." value='0' />
+                                                                                        <a class='cbtn cbtn2 up_count2' title='Up'><i class='fa fa-plus'></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <!-- Infants  Counter -->
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="col-md-6">
+                                                                                    <p>Infants (0-2) </p>
+                                                                                </div>
+                                                                                <div class="col-md-6">
+                                                                                    <div class='main-counter text-right'>
+                                                                                        <a class='cbtn cbtn3 down_count3' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                        <input class='counter counter3' type="text" placeholder="value..." value='0' />
+                                                                                        <a class='cbtn cbtn3 up_count3' title='Up'><i class='fa fa-plus'></i></a>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="inner-counter">
+                                                                            <div class="row">
+                                                                                <div class="form-group col-md-12">
+                                                                                    <label>Classs</label>
+                                                                                    <select class="form-control sld">
+                                                                                        <option selected="">Choose...</option>
+                                                                                        <option selected="">Economy</option>
+                                                                                        <option selected="">Business</option>
+                                                                                        <option>...</option>
+                                                                                    </select>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
 
-<script src="~/Scripts/stt-js.js"></script>
-
-<script>
-    $(document).ready(function () {
-       //$("#start-record-btn").click().trigger();
-        // console.log("ready!");
-        //var url = 'https://translate.google.com/?sl=bn&tl=en&text=%20ami%20dhaka%20jabo%20&op=translate';
-        //recognition.onspeechend = function () {
-        //    //alert(noteContent);
-        //    $.get(url, function (data, status) {
-        //        console.log("Data: " + data + "\nStatus: " + status);
-        //        $('#voiceRendered').val(data);
-        //    });
-        //}
-    });
-</script>
+                                                                <div class="form-group col-md-4">
+                                                                    <a href="javascript:void(0)" class="search">Search</a>
+                                                                </div>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                    <div class="add-remove-btn">
+                                                        <a class="add-btn" href="#">Add</a>
+                                                        <a class="rmv-btn" href="#">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Inner Tab End -->
+                                </div>
+                            </div>
+                            <!-- Tab Item -->
+                            <div class="tab-content" id="tab2">
+                                <div class="content">
+                                    <div class="hotel">
+                                        <form>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-3">
+                                                    <input placeholder="Destination" class="form-control" type="text" id="destination">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <input placeholder="Check In" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <input placeholder="Check Out" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <select class="form-control">
+                                                        <option selected="">Nationality</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <select class="form-control">
+                                                        <option selected="">Room</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <select class="form-control">
+                                                        <option selected="">Adults</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <select class="form-control">
+                                                        <option selected="">Children</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-3">
+                                                    <a href="javascript:void(0)" class="search">Search</a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Tab Item -->
+                            <div class="tab-content" id="tab3">
+                                <div class="content">
+                                    <div class="Packages">
+                                        <form>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <select class="form-control">
+                                                        <option selected="">Country</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <select class="form-control">
+                                                        <option selected="">Packages</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <select class="form-control">
+                                                        <option selected="">Duration</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <a href="javascript:void(0)" class="search">Search</a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-content" id="tab4">
+                                <div class="content">
+                                    <div class="Packages">
+                                        <form>
+                                            <div class="form-row">
+                                                <div class="form-group col-md-4">
+                                                    <select class="form-control">
+                                                        <option selected="">Pick up</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <select class="form-control">
+                                                        <option selected="">Drop Off</option>
+                                                        <option>...</option>
+                                                    </select>
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <input placeholder="Pick Up Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                </div>
+                                                <div class="form-group col-md-4">
+                                                    <a href="javascript:void(0)" class="search">Search</a>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

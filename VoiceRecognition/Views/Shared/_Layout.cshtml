@@ -1,43 +1,227 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - VoiceSearch</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+    <!-- Stylesheets -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <link href="css/animate.min.css" rel="stylesheet">
+    <link href="css/owl.carousel.min.css" rel="stylesheet">
+    <link href="css/owl.theme.default.css" rel="stylesheet">
+    <link href="css/common.css" rel="stylesheet">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="images/favicon.png" type="image/x-icon">
+    <link rel="icon" href="images/favicon.png" type="image/x-icon">
+    <!-- Responsive -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("VoiceSearch", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+    <header id="header" class="header">
+        <!-- Top Bar Start -->
+        <div class="top-bar">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="bar-left">
+                            <ul>
+                                <li><i class="fa fa-address-card"></i>Institute of Information Technology, Dhaka University</li>
+                                <li><i class="fa fa-envelope"></i><a href="#">hssnmd.farhad@gmail.com</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="bar-right">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+                                <li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Hossain MD Farhad</p>
-        </footer>
-    </div>
+        <!-- Top Bar End -->
+        <!-- Main Menu Start -->
+        <div class="main-menu">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="menu-wrapper">
+                            <nav id="nav-menu">
+                                <div class="logo">
+                                    <a href="#" class="text-logo">Voice Enabled Flight Search</a>
+                                    <a href="#" class="img-logo"><img src="images/logo-images.jpg" alt="Logo"></a>
+                                </div>
+                                <div class="menu-btn">
+                                    <a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
+                                </div>
+                                <!-- Login Button -->
+                                <div class="login">
+                                    <a href="#">Login</a>
+                                </div>
+                                <!-- Login Form Start -->
+                                <div id="login-wrapper" class="login-wrap">
+                                    <div class="login-html">
+                                        <div class="logs">
+                                            <a class="login-close" href="#">
+                                                <i class="fa fa-times-circle" aria-hidden="true"></i>
+                                            </a>
+                                        </div>
 
+                                        <input id="tab-1" type="radio" name="tab" class="sign-in" checked>
+                                        <label for="tab-1" class="tab">Sign In</label>
+                                        <input id="tab-2" type="radio" name="tab" class="sign-up">
+                                        <label for="tab-2" class="tab">Sign Up</label>
+                                        <div class="login-form">
+                                            <div class="sign-in-htm">
+                                                <div class="group">
+                                                    <label for="user" class="label">Username</label>
+                                                    <input id="user" type="text" class="input">
+                                                </div>
+                                                <div class="group">
+                                                    <label for="pass" class="label">Password</label>
+                                                    <input id="pass" type="password" class="input" data-type="password">
+                                                </div>
+                                                <div class="group">
+                                                    <input id="check" type="checkbox" class="check" checked>
+                                                    <label for="check"><span class="icon"></span> Keep me Signed in</label>
+                                                </div>
+                                                <div class="group">
+                                                    <input type="submit" class="button" value="Sign In">
+                                                </div>
+                                                <div class="hr"></div>
+                                                <div class="foot-lnk">
+                                                    <a href="#forgot" class="fgt">Forgot Password?</a>
+                                                </div>
+                                            </div>
+                                            <div class="sign-up-htm">
+                                                <div class="group">
+                                                    <label for="user" class="label">Username</label>
+                                                    <input id="user" type="text" class="input">
+                                                </div>
+                                                <div class="group">
+                                                    <label for="pass" class="label">Password</label>
+                                                    <input id="pass" type="password" class="input" data-type="password">
+                                                </div>
+                                                <div class="group">
+                                                    <label for="pass" class="label">Repeat Password</label>
+                                                    <input id="pass" type="password" class="input" data-type="password">
+                                                </div>
+                                                <div class="group">
+                                                    <label for="pass" class="label">Email Address</label>
+                                                    <input id="pass" type="text" class="input">
+                                                </div>
+                                                <div class="group">
+                                                    <input type="submit" class="button" value="Sign Up">
+                                                </div>
+                                            </div>
 
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Login Form End -->
+                                <ul class="menu-list">
+                                    <li class="active"><a href="#">Home</a></li>
+                                    <li><a href="#">About</a></li>
+                                    <li class="has-dropdown">
+                                        <a href="#">Droupdown</a>
+                                        <ul>
+                                            <li><a href="#">Drop item</a></li>
+                                            <li><a href="#">Drop item</a></li>
+                                            <li><a href="#">Drop item</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Main Menu End -->
+    </header>
+
+    @RenderBody()
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-continer">
+            <div class="container ">
+                <div class="row">
+                    <div class="com-sm-6 col-md-4">
+                        <div class="footer-widget about-widget">
+                            <div class="footer-logo">
+                                <figure>
+                                    <a href="#"><img src="images/logo-f.jpg" alt=""></a>
+                                </figure>
+                            </div>
+                            <div class="widget-content">
+                                <h5>Voice Enabled Flight Search </h5>
+                                <div class="c-info">
+                                    <ul>
+                                        <li>IIT, University of Dhaka</li>
+                                        <li>Dhaka, Bangladesh</li>
+                                        <li><span>Tel:</span> +8801779482994</li>
+                                        <li><span>Web</span>http://www.iit.du.ac.bd</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="com-sm-6 col-md-2">
+                        <div class="footer-widget links-widget">
+                            <h2 class="widget-title">Useful links</h2>
+                            <div class="widget-content">
+                                <ul class="list">
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Services</a></li>
+                                    <li><a href="#">Project</a></li>
+                                    <li><a href="#">News</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="com-sm-6 col-md-3">
+                        <div class="footer-widget recent-posts">
+                            <h2 class="widget-title pay">Pay With</h2>
+                            <div class="widget-content">
+                                <img src="images/paywith_mobile_versionW.png" alt="Pay With Images">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="container">
+                    <div class="inner-container clearfix">
+                        <div class="social-links">
+                            <ul class="social-icon-two">
+                                <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                                <li><a href="#"><i class="fa fa-whatsapp"></i></a></li>
+                            </ul>
+                        </div>
+
+                        <div class="copyright-text">
+                            <p>Copyright © @DateTime.Now.Year - Hossain MD Farhad, MIT, IIT, DU</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/owl.carousel.min.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>
