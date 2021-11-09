@@ -132,7 +132,7 @@ if (!('webkitSpeechRecognition' in window)) {
 } else {
     start_button.style.display = 'inline-block';
     var recognition = new webkitSpeechRecognition();
-    recognition.continuous = true;
+    recognition.continuous = false;
     recognition.interimResults = false;
 
     recognition.onstart = function () {
@@ -206,6 +206,14 @@ if (!('webkitSpeechRecognition' in window)) {
         if (final_transcript || interim_transcript) {
             showButtons('inline-block');
         }
+
+        if (final_transcript.trim() != 'undefined' && final_transcript.trim() != '') {
+            /*alert(final_transcript);*/
+
+            SpeechSynthesis(final_transcript);
+
+        }
+
     };
 }
 
@@ -233,29 +241,6 @@ function createEmail() {
     var subject = encodeURI(final_transcript.substring(0, n));
     var body = encodeURI(final_transcript.substring(n + 1));
     window.location.href = 'mailto:?subject=' + subject + '&body=' + body;
-}
-
-function copyButton() {
-    if (recognizing) {
-        recognizing = false;
-        recognition.stop();
-    }
-    copy_button.style.display = 'none';
-    copy_info.style.display = 'inline-block';
-    showInfo('');
-}
-
-function emailButton() {
-    if (recognizing) {
-        create_email = true;
-        recognizing = false;
-        recognition.stop();
-    } else {
-        createEmail();
-    }
-    email_button.style.display = 'none';
-    email_info.style.display = 'inline-block';
-    showInfo('');
 }
 
 function startButton(event) {
@@ -294,8 +279,28 @@ function showButtons(style) {
         return;
     }
     current_style = style;
-    copy_button.style.display = style;
-    email_button.style.display = style;
-    copy_info.style.display = 'none';
-    email_info.style.display = 'none';
+}
+
+
+function SpeechSynthesis(rawData) {
+    $.ajax({
+        url: '/Home/SyncSpeech',
+        type: "POST",
+        data: { rawData },
+        success: function (response) {
+            if (response.Success) {
+                $("#FromID").val(response.FromId).change();
+                showInfo('info_speak_now_Destination');
+            }
+            else {
+                $("#info_message").text(response.Message);
+                showInfo('info_message');
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+            alert("Something went wrong! Please speak again!");
+            startButton(event);
+        }
+    });
 }

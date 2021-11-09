@@ -2,66 +2,14 @@
 @{
     ViewBag.Title = "Home Page";
 }
-<style>
-    .browser-landing {
-        max-width: 180px !important;
-    }
 
-    #info {
-        font-size: 10px;
-    }
-
-    #div_start {
-        float: right;
-    }
-
-    #headline {
-        text-decoration: none
-    }
-
-    #results {
-        font-size: 10px;
-        font-weight: bold;
-        border: 1px solid #ddd;
-        text-align: left;
-        max-width: 150px !important;
-        min-width: 150px !important;
-    }
-
-    #start_button {
-        border: 0;
-        background-color: transparent;
-        padding: 0;
-    }
-
-    .interim {
-        color: gray;
-    }
-
-    .final {
-        color: black;
-        padding-right: 3px;
-    }
-
-    .button {
-        display: none;
-    }
-
-    .marquee {
-        margin: 10px auto;
-    }
-
-    .compact marquee {
-        max-width: 150px !important;
-    }
-</style>
 <!-- Banner Section Start -->
 <section class="banner">
     <div class="banner-wrapper">
         <div class="inner-banner owl-carousel owl-theme">
-            <img class="owl-lazy" data-src="images/main-slider/air1.jpg" alt="">
-            <img class="owl-lazy" data-src="images/main-slider/air4.jpg" alt="">
-            <img class="owl-lazy" data-src="images/main-slider/air5.jpg" alt="">
+            <img class="owl-lazy" src="~/images/main-slider/air1.jpg" />
+            <img class="owl-lazy" src="~/images/main-slider/air4.jpg" />
+            <img class="owl-lazy" src="~/images/main-slider/air5.jpg" />
         </div>
     </div>
     <div class="search-tabs">
@@ -85,30 +33,30 @@
                                         <!--Tab Btns-->
                                         <ul class="itabs itab-buttons clearfix">
                                             <li data-tab="#itab1" class="itab-btn active-ibtn">One Way</li>
-                                            <li data-tab="#itab2" class="itab-btn">Round Trip</li>
-                                            <li data-tab="#itab3" class="itab-btn">Multi City</li>
+                                            @*<li data-tab="#itab2" class="itab-btn">Round Trip</li>
+                                                <li data-tab="#itab3" class="itab-btn">Multi City</li>*@
                                         </ul>
                                         <div class="itab-container">
-                                            <!-- One Way Tab Item -->
+                                            <!-- One Way Tab Item  ACTIVE ACTIVE ACTIVE ACTIVE-->
                                             <div class="itab-content active-itab" id="itab1">
                                                 <div class="icontent">
                                                     <div class="one-way">
-                                                        <form>
+                                                        <form method="post" action="@Url.Action("SearchFlight","Home")">
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-4">
-                                                                    <select class="form-control">
-                                                                        <option selected="">From</option>
-                                                                        <option>...</option>
-                                                                    </select>
+                                                                    @*<select class="form-control">
+                                                                            <option selected="">From</option>
+                                                                            <option>...</option>
+                                                                        </select>*@
+                                                                    @Html.DropDownListFor(model => model.FromID, (SelectList)ViewBag.Airports, "From" , htmlAttributes: new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(model => model.FromID, "", new { @class = "text-danger" })
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                                    <select class="form-control">
-                                                                        <option selected="">To</option>
-                                                                        <option>...</option>
-                                                                    </select>
+                                                                    @Html.DropDownListFor(model => model.ToID, (SelectList)ViewBag.Airports,"To", htmlAttributes: new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(model => model.ToID, "", new { @class = "text-danger" })
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                                    <input placeholder="Depart" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                                    <input placeholder="Depart"name="Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
                                                                 </div>
                                                                 <div class="form-group col-md-4">
                                                                     <a href="javascript:void(0)" class="travelers">Travelers, Economy</a>
@@ -174,7 +122,7 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                                    <a href="javascript:void(0)" class="search">Search</a>
+                                                                    <a href="javascript:submit()" class="search">Search</a>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -182,7 +130,7 @@
                                                 </div>
                                             </div>
                                             <!-- Round Trip Tab Item -->
-                                            <div class="itab-content" id="itab2">
+                                            <!--<div class="itab-content" id="itab2">
                                                 <div class="icontent">
                                                     <div class="round-trip">
                                                         <form>
@@ -202,39 +150,39 @@
 
                                                                 <div class="form-group col-md-4">
                                                                     <a href="javascript:void(0)" class="travelers">Travelers, Economy</a>
-                                                                    <div class="travelers-counter">
-                                                                        <!-- Adults Counter -->
-                                                                        <div class="inner-counter">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <p>Adults (12+) </p>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class='main-counter text-right'>
-                                                                                        <a class='cbtn cbtn1 down_count1' title='Down'><i class='fa fa-minus'></i></a>
-                                                                                        <input class='counter counter1' type="text" placeholder="value..." value='0' />
-                                                                                        <a class='cbtn cbtn1 up_count1' title='Up'><i class='fa fa-plus'></i></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- Children  Counter -->
-                                                                        <div class="inner-counter">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <p>Children  (2-11) </p>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class='main-counter text-right'>
-                                                                                        <a class='cbtn cbtn2 down_count2' title='Down'><i class='fa fa-minus'></i></a>
-                                                                                        <input class='counter counter2' type="text" placeholder="value..." value='0' />
-                                                                                        <a class='cbtn cbtn2 up_count2' title='Up'><i class='fa fa-plus'></i></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- Infants  Counter -->
-                                                                        <div class="inner-counter">
+                                                                    <div class="travelers-counter">-->
+                                            <!-- Adults Counter -->
+                                            <!--<div class="inner-counter">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p>Adults (12+) </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class='main-counter text-right'>
+                                                            <a class='cbtn cbtn1 down_count1' title='Down'><i class='fa fa-minus'></i></a>
+                                                            <input class='counter counter1' type="text" placeholder="value..." value='0' />
+                                                            <a class='cbtn cbtn1 up_count1' title='Up'><i class='fa fa-plus'></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                            <!-- Children  Counter -->
+                                            <!--<div class="inner-counter">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p>Children  (2-11) </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class='main-counter text-right'>
+                                                            <a class='cbtn cbtn2 down_count2' title='Down'><i class='fa fa-minus'></i></a>
+                                                            <input class='counter counter2' type="text" placeholder="value..." value='0' />
+                                                            <a class='cbtn cbtn2 up_count2' title='Up'><i class='fa fa-plus'></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                            <!-- Infants  Counter -->
+                                            <!--<div class="inner-counter">
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
                                                                                     <p>Infants (0-2) </p>
@@ -276,9 +224,9 @@
                                                         </form>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                             <!-- Multi City Tab Item -->
-                                            <div class="itab-content" id="itab3">
+                                            <!--<div class="itab-content" id="itab3">
                                                 <div class="icontent">
                                                     <div class="multi-trip">
                                                         <form>
@@ -300,39 +248,39 @@
                                                                 </div>
                                                                 <div class="form-group col-md-3">
                                                                     <a href="javascript:void(0)" class="travelers">Travelers, Economy</a>
-                                                                    <div class="travelers-counter">
-                                                                        <!-- Adults Counter -->
-                                                                        <div class="inner-counter">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <p>Adults (12+) </p>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class='main-counter text-right'>
-                                                                                        <a class='cbtn cbtn1 down_count1' title='Down'><i class='fa fa-minus'></i></a>
-                                                                                        <input class='counter counter1' type="text" placeholder="value..." value='0' />
-                                                                                        <a class='cbtn cbtn1 up_count1' title='Up'><i class='fa fa-plus'></i></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- Children  Counter -->
-                                                                        <div class="inner-counter">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <p>Children  (2-11) </p>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class='main-counter text-right'>
-                                                                                        <a class='cbtn cbtn2 down_count2' title='Down'><i class='fa fa-minus'></i></a>
-                                                                                        <input class='counter counter2' type="text" placeholder="value..." value='0' />
-                                                                                        <a class='cbtn cbtn2 up_count2' title='Up'><i class='fa fa-plus'></i></a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                        <!-- Infants  Counter -->
-                                                                        <div class="inner-counter">
+                                                                    <div class="travelers-counter">-->
+                                            <!-- Adults Counter -->
+                                            <!--<div class="inner-counter">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p>Adults (12+) </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class='main-counter text-right'>
+                                                            <a class='cbtn cbtn1 down_count1' title='Down'><i class='fa fa-minus'></i></a>
+                                                            <input class='counter counter1' type="text" placeholder="value..." value='0' />
+                                                            <a class='cbtn cbtn1 up_count1' title='Up'><i class='fa fa-plus'></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                            <!-- Children  Counter -->
+                                            <!--<div class="inner-counter">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <p>Children  (2-11) </p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class='main-counter text-right'>
+                                                            <a class='cbtn cbtn2 down_count2' title='Down'><i class='fa fa-minus'></i></a>
+                                                            <input class='counter counter2' type="text" placeholder="value..." value='0' />
+                                                            <a class='cbtn cbtn2 up_count2' title='Up'><i class='fa fa-plus'></i></a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                            <!-- Infants  Counter -->
+                                            <!--<div class="inner-counter">
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
                                                                                     <p>Infants (0-2) </p>
@@ -373,7 +321,7 @@
                                                         <a class="rmv-btn" href="#">Remove</a>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div>-->
                                         </div>
                                     </div>
                                     <!-- Inner Tab End -->
@@ -490,51 +438,64 @@
                         <!-------------------------------VOICE SEARCH--------------------->
                         <div class="tab-vsearch">
                             <div id="info" class="col-md-12">
-                                <p id="info_start">
-                                    Click on the microphone icon and begin speaking for as long as you like.
-                                </p>
-                                <p id="info_speak_now" style="display:none">
-                                    Speak now.
-                                </p>
-                                <p id="info_no_speech" style="display:none">
+                                <span id="info_start">
+                                    Click on the microphone icon and begin speaking...
+                                </span>
+                                <span id="info_message">
+                                    
+                                </span>
+                                <span id="info_speak_now" style="display:none">
+                                    State your depurture location 
+                                </span>
+                                <span id="info_speak_now_Destination" style="display:none">
+                                    State your destionation 
+                                </span>
+                                <span id="info_speak_now_Date" style="display:none">
+                                    State your depurture date
+                                </span>
+                                <span id="info_no_speech" style="display:none">
                                     No speech was detected. You may need to adjust your <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
                                         microphone
                                         settings
                                     </a>.
-                                </p>
-                                <p id="info_no_microphone" style="display:none">
+                                </span>
+                                <span id="info_no_microphone" style="display:none">
                                     No microphone was found. Ensure that a microphone is installed and that
                                     <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
                                         microphone settings
                                     </a> are configured correctly.
-                                </p>
-                                <p id="info_allow" style="display:none">
+                                </span>
+                                <span id="info_allow" style="display:none">
                                     Click the "Allow" button above to enable your microphone.
-                                </p>
-                                <p id="info_denied" style="display:none">
+                                </span>
+                                <span id="info_denied" style="display:none">
                                     Permission to use microphone was denied.
-                                </p>
-                                <p id="info_blocked" style="display:none">
+                                </span>
+                                <span id="info_blocked" style="display:none">
                                     Permission to use microphone is blocked. To change, go to
                                     chrome://settings/contentExceptions#media-stream
-                                </p>
-                                <p id="info_upgrade" style="display:none">
+                                </span>
+                                <span id="info_upgrade" style="display:none">
                                     Web Speech API is not supported by this browser. Upgrade to <a href="//www.google.com/chrome">Chrome</a> version 25 or later.
-                                </p>
+                                </span>
                             </div>
-                            <div id="div_start" class="col-md-2">
-                                <button id="start_button" onclick="startButton(event)">
-                                    <img alt="Start" id="start_img"
-                                         src="https://www.google.com/intl/en/chrome/assets/common/images/content/mic.gif">
-                                </button>
-                            </div>
-                            <div id="results" class="col-md-10">
-                                <span class="final" id="final_span"></span> <span class="interim" id="interim_span"></span>
-                            </div>
-                            <div class="compact marquee" id="div_language" style="display:none">
-                                <select id="select_language" onchange="updateCountry()">
-                                </select>&nbsp;&nbsp; <select id="select_dialect">
-                                </select>
+                            <div class="col-md-12">
+                                <div id="div_start" class="col-md-3 pull-right">
+                                    <button id="start_button" onclick="startButton(event)">
+                                        <img alt="Start" id="start_img"
+                                             src="https://www.google.com/intl/en/chrome/assets/common/images/content/mic.gif">
+                                    </button>
+                                </div>
+                                <div id="results" class="col-md-9">
+                                    <span class="final" id="final_span"></span>
+                                    <span class="interim" id="interim_span"></span>
+                                </div>
+                                <!--LANGUAGE SELECT OPTION-->
+                                <div class="compact marquee" id="div_language" style="display:none">
+                                    <select id="select_language" onchange="updateCountry()">
+                                    </select>&nbsp;&nbsp; <select id="select_dialect">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -543,4 +504,11 @@
         </div>
     </div>
 </section>
-<script src="~/js/speechJS.js"></script>
+
+<script>
+    $(document).ready(function () {
+        startButton(event);
+    });
+
+</script>
+

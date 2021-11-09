@@ -11,9 +11,15 @@ namespace VoiceRecognition.Controllers
 {
     public class HomeController : Controller
     {
+        VoiceSearchDBContext _context = new VoiceSearchDBContext();
         public ActionResult Index()
         {
+
             VoiceSearchViewModel viewModel = new VoiceSearchViewModel();
+            List<Airport> airports = _context.Airports.ToList();
+
+            ViewBag.Airports = new SelectList(airports, "AirportID", "Name");
+
             return View(viewModel);
         }
 
@@ -33,6 +39,64 @@ namespace VoiceRecognition.Controllers
                 Console.WriteLine(ex);
             }
             return View(viewModel);
+        }
+
+        [HttpPost]
+        public async Task<JsonResult> SyncSpeech(string rawData)
+        {
+            SyncResponse resp = new SyncResponse();
+            resp.Success = false;
+
+            try
+            {
+                if (!string.IsNullOrEmpty(rawData) && !string.IsNullOrWhiteSpace(rawData))
+                {
+                    string translationOnly = await GetTranslation(rawData);
+
+                    long id = GetAirportNames(translationOnly.Trim());
+
+                    if (id>0)
+                    {
+                        resp.FromId = id;
+                        resp.Success = true;
+                        resp.Message = "Please, state your destination";
+                    }
+                    else
+                    {
+                        resp.Message = "Sorry, either stated place is not valid or we don't operate at the stated place!";
+                    }
+
+                }
+                else
+                {
+                    resp.Message = "No Search Data!";
+                    return Json(resp);
+                }
+
+                return Json(resp);
+            }
+            catch (Exception ex)
+            {
+                resp.Message = ex.Message;
+                return Json(ex.Message, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private long GetAirportNames(string names)
+        {
+            try
+            {
+                Airport airport = _context.Airports.Where(x => x.Name.Trim().ToLower() == names.Trim().ToLower()).FirstOrDefault();
+                if (airport != null)
+                {
+                    return airport.AirportID;
+                }
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+            return 0;
         }
 
         private async Task<string> GetTranslation(string voiceRendered)
@@ -62,8 +126,8 @@ namespace VoiceRecognition.Controllers
                     response.EnsureSuccessStatusCode();
                     var body = await response.Content.ReadAsStringAsync();
                     //Console.WriteLine(body);
-                    Translation Translation = Newtonsoft.Json.JsonConvert.DeserializeObject<Translation>(body);
-                    result = Translation.translatedText;
+                    Root root = Newtonsoft.Json.JsonConvert.DeserializeObject<Root>(body);
+                    result = root.data.translations.FirstOrDefault().translatedText;
                 }
             }
             catch (Exception ex)

@@ -8,6 +8,9 @@ namespace VoiceRecognition.Models
     public class VoiceSearchViewModel
     {
         public string voiceRendered { get; set; }
+        public long FromID { get; set; }
+        public long ToID { get; set; }
+        public DateTime Date { get; set; }
     }
 
     public class Translation

@@ -710,11 +710,12 @@ Banner Style
 	width: 10%;
 }
 .tab-container{
-	width: 70%;
+	width: 60%;
 	padding: 15px;
 }
 .tab-vsearch{
-	width:20%
+	width:30%;
+	line-height: 25px!important;
 }
 .tabs li{
 	display: block;
@@ -1684,4 +1685,55 @@ Package Section
 
 .social-icon-two li a:hover{
 	color: #ff8a00;
+}/*===========================VOICE SEARCH============================*/
+.browser-landing {
+	max-width: 180px !important;
+}
+
+#info {
+	font-size: 15px;
+}
+
+#div_start {
+	float: right;
+}
+
+#headline {
+	text-decoration: none
+}
+
+#results {
+	font-size: 15px;
+	font-weight: bold;
+	border: 1px solid #ff8a00;
+	text-align: left;
+	min-width: 150px !important;
+	min-height: 150px;
+}
+
+#start_button {
+	border: 0;
+	background-color: transparent;
+	padding: 0;
+}
+
+.interim {
+	color: gray;
+}
+
+.final {
+	color: white;
+	padding-right: 3px;
+}
+
+.button {
+	display: none;
+}
+
+.marquee {
+	margin: 10px auto;
+}
+
+.compact marquee {
+	max-width: 150px !important;
 }
