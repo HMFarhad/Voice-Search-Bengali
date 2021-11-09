@@ -143,9 +143,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\al-gazi.png" />
-    <Content Include="images\al-gazis.png" />
-    <Content Include="images\Algazi.png" />
     <Content Include="images\azlg.png" />
     <Content Include="images\favicon.jpg" />
     <Content Include="images\favicon.png" />
@@ -264,6 +261,7 @@
     <Content Include="images\resource\work-thumb-6.jpg" />
     <Content Include="images\shap-1.png" />
     <Content Include="images\shape-2.png" />
+    <Content Include="js\autotrack.js" />
     <Content Include="js\jquery.js" />
     <Content Include="js\main.js" />
     <Content Include="js\owl.carousel.min.js" />

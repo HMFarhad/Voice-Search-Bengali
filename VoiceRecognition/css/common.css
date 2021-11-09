@@ -32,7 +32,7 @@
 body {
 	font-size:14px;
 	color:#C9C9C9;
-	line-height: 28px;
+	line-height: 50px;
 	font-weight:400;
 	background:#ffffff;
 	-webkit-font-smoothing: antialiased;
@@ -162,7 +162,7 @@ section{
 	width: 100%;
 	position: absolute;
 	left: 0;
-	top: 34px;
+	top: 49px;
 	width: 100%;
 	padding: 0 40px;
 	background-color: rgba(0,0,0,0.90);
@@ -683,7 +683,7 @@ Banner Style
 	margin: 100px 0px;
 	position: absolute;
 	z-index: 1;
-	top: 40%;
+	top: 20%;
 	left:0;
 	right: 0;	
 	margin: 0 auto;
@@ -707,11 +707,14 @@ Banner Style
 	border: 1px solid #ff8a00;
 }
 .tabs{
-	width: 20%;
+	width: 10%;
 }
 .tab-container{
-	width: 80%;
+	width: 70%;
 	padding: 15px;
+}
+.tab-vsearch{
+	width:20%
 }
 .tabs li{
 	display: block;
@@ -1087,8 +1090,11 @@ select:-moz-focusring {
 		width: 100% !important;
 	}
 }
-
-
+.vheader {
+	position: relative;
+	font-size: 120% !important;
+	margin-top: 4%;
+}
 /*** 
 
 ====================================================================
@@ -1096,7 +1102,7 @@ Package Section
 ====================================================================
 
 ***/
-.latest-package{
+.latest-package {
 	display: block;
 	margin: 100px 0px;
 	clear: both;

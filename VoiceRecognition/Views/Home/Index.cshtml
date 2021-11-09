@@ -20,6 +20,9 @@
                         <!--Tab Btns-->
                         <ul class="tabs tab-buttons clearfix">
                             <li data-tab="#tab1" class="tab-btn active-btn">Flights</li>
+                            @*<li data-tab="#tab2" class="tab-btn">Hotels</li>
+                                <li data-tab="#tab3" class="tab-btn">Packages</li>
+                                <li data-tab="#tab4" class="tab-btn">Tranports</li>*@
                         </ul>
                         <div class="tab-container">
                             <!-- Tab Item -->
@@ -61,7 +64,7 @@
                                                                         <!-- Adults Counter -->
                                                                         <div class="inner-counter">
                                                                             <div class="row">
-                                                                                <div class="col-md-6">  
+                                                                                <div class="col-md-6">
                                                                                     <p>Adults (12+) </p>
                                                                                 </div>
                                                                                 <div class="col-md-6">
@@ -372,64 +375,77 @@
                                 </div>
                             </div>
                             <!-- Tab Item -->
-                            <div class="tab-content" id="tab3">
-                                <div class="content">
-                                    <div class="Packages">
-                                        <form>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-4">
-                                                    <select class="form-control">
-                                                        <option selected="">Country</option>
-                                                        <option>...</option>
-                                                    </select>
+                            @*<div class="tab-content" id="tab3">
+                                    <div class="content">
+                                        <div class="Packages">
+                                            <form>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-4">
+                                                        <select class="form-control">
+                                                            <option selected="">Country</option>
+                                                            <option>...</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <select class="form-control">
+                                                            <option selected="">Packages</option>
+                                                            <option>...</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <select class="form-control">
+                                                            <option selected="">Duration</option>
+                                                            <option>...</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <a href="javascript:void(0)" class="search">Search</a>
+                                                    </div>
                                                 </div>
-                                                <div class="form-group col-md-4">
-                                                    <select class="form-control">
-                                                        <option selected="">Packages</option>
-                                                        <option>...</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <select class="form-control">
-                                                        <option selected="">Duration</option>
-                                                        <option>...</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <a href="javascript:void(0)" class="search">Search</a>
-                                                </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="tab-content" id="tab4">
+                                    <div class="content">
+                                        <div class="Packages">
+                                            <form>
+                                                <div class="form-row">
+                                                    <div class="form-group col-md-4">
+                                                        <select class="form-control">
+                                                            <option selected="">Pick up</option>
+                                                            <option>...</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <select class="form-control">
+                                                            <option selected="">Drop Off</option>
+                                                            <option>...</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <input placeholder="Pick Up Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                    </div>
+                                                    <div class="form-group col-md-4">
+                                                        <a href="javascript:void(0)" class="search">Search</a>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>*@
+                        </div>
+                        <!-------------------------------VOICE SEARCH--------------------->
+                        <div class="tab-vsearch">
+                            <div class="vheader">
+                                @*<input type="button" id="start_button" value="Click to Speak" onclick="startButton(event)" class="btn btn-info">*@
+                                <button id="start_button" onclick="startButton(event)" class="btn btn-info" value="Click to Speak"></button>
                             </div>
-                            <div class="tab-content" id="tab4">
-                                <div class="content">
-                                    <div class="Packages">
-                                        <form>
-                                            <div class="form-row">
-                                                <div class="form-group col-md-4">
-                                                    <select class="form-control">
-                                                        <option selected="">Pick up</option>
-                                                        <option>...</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <select class="form-control">
-                                                        <option selected="">Drop Off</option>
-                                                        <option>...</option>
-                                                    </select>
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <input placeholder="Pick Up Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
-                                                </div>
-                                                <div class="form-group col-md-4">
-                                                    <a href="javascript:void(0)" class="search">Search</a>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
+                            @*<div class="input-group-text form-control">
+            <textarea class="form-control-lg" id="voiceRendered" name="voiceRendered" value="@Model.voiceRendered" placeholder="" ></textarea>
+        </div>*@
+                            <div id="results">
+                                <span class="final" id="final_span"></span> <span class="interim" id="interim_span"></span>
                             </div>
                         </div>
                     </div>
@@ -438,3 +454,12 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    var recognition = new SpeechRecognition();
+    recognition.onresult = function (event) {
+        //if (event.results.length > 0) {
+        //    q.value = event.results[0][0].transcript;
+        //    q.form.submit();
+        //}
+    }
+</script>
