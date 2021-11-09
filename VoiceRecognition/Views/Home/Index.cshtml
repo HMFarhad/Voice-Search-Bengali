@@ -2,7 +2,59 @@
 @{
     ViewBag.Title = "Home Page";
 }
+<style>
+    .browser-landing {
+        max-width: 180px !important;
+    }
 
+    #info {
+        font-size: 10px;
+    }
+
+    #div_start {
+        float: right;
+    }
+
+    #headline {
+        text-decoration: none
+    }
+
+    #results {
+        font-size: 10px;
+        font-weight: bold;
+        border: 1px solid #ddd;
+        text-align: left;
+        max-width: 150px !important;
+        min-width: 150px !important;
+    }
+
+    #start_button {
+        border: 0;
+        background-color: transparent;
+        padding: 0;
+    }
+
+    .interim {
+        color: gray;
+    }
+
+    .final {
+        color: black;
+        padding-right: 3px;
+    }
+
+    .button {
+        display: none;
+    }
+
+    .marquee {
+        margin: 10px auto;
+    }
+
+    .compact marquee {
+        max-width: 150px !important;
+    }
+</style>
 <!-- Banner Section Start -->
 <section class="banner">
     <div class="banner-wrapper">
@@ -437,15 +489,52 @@
                         </div>
                         <!-------------------------------VOICE SEARCH--------------------->
                         <div class="tab-vsearch">
-                            <div class="vheader">
-                                @*<input type="button" id="start_button" value="Click to Speak" onclick="startButton(event)" class="btn btn-info">*@
-                                <button id="start_button" onclick="startButton(event)" class="btn btn-info" value="Click to Speak"></button>
+                            <div id="info" class="col-md-12">
+                                <p id="info_start">
+                                    Click on the microphone icon and begin speaking for as long as you like.
+                                </p>
+                                <p id="info_speak_now" style="display:none">
+                                    Speak now.
+                                </p>
+                                <p id="info_no_speech" style="display:none">
+                                    No speech was detected. You may need to adjust your <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+                                        microphone
+                                        settings
+                                    </a>.
+                                </p>
+                                <p id="info_no_microphone" style="display:none">
+                                    No microphone was found. Ensure that a microphone is installed and that
+                                    <a href="//support.google.com/chrome/bin/answer.py?hl=en&amp;answer=1407892">
+                                        microphone settings
+                                    </a> are configured correctly.
+                                </p>
+                                <p id="info_allow" style="display:none">
+                                    Click the "Allow" button above to enable your microphone.
+                                </p>
+                                <p id="info_denied" style="display:none">
+                                    Permission to use microphone was denied.
+                                </p>
+                                <p id="info_blocked" style="display:none">
+                                    Permission to use microphone is blocked. To change, go to
+                                    chrome://settings/contentExceptions#media-stream
+                                </p>
+                                <p id="info_upgrade" style="display:none">
+                                    Web Speech API is not supported by this browser. Upgrade to <a href="//www.google.com/chrome">Chrome</a> version 25 or later.
+                                </p>
                             </div>
-                            @*<div class="input-group-text form-control">
-            <textarea class="form-control-lg" id="voiceRendered" name="voiceRendered" value="@Model.voiceRendered" placeholder="" ></textarea>
-        </div>*@
-                            <div id="results">
+                            <div id="div_start" class="col-md-2">
+                                <button id="start_button" onclick="startButton(event)">
+                                    <img alt="Start" id="start_img"
+                                         src="https://www.google.com/intl/en/chrome/assets/common/images/content/mic.gif">
+                                </button>
+                            </div>
+                            <div id="results" class="col-md-10">
                                 <span class="final" id="final_span"></span> <span class="interim" id="interim_span"></span>
+                            </div>
+                            <div class="compact marquee" id="div_language" style="display:none">
+                                <select id="select_language" onchange="updateCountry()">
+                                </select>&nbsp;&nbsp; <select id="select_dialect">
+                                </select>
                             </div>
                         </div>
                     </div>
@@ -454,12 +543,4 @@
         </div>
     </div>
 </section>
-<script type="text/javascript">
-    var recognition = new SpeechRecognition();
-    recognition.onresult = function (event) {
-        //if (event.results.length > 0) {
-        //    q.value = event.results[0][0].transcript;
-        //    q.form.submit();
-        //}
-    }
-</script>
+<script src="~/js/speechJS.js"></script>
