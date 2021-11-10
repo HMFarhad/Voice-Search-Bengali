@@ -53,13 +53,19 @@ namespace VoiceRecognition.Controllers
                 {
                     string translationOnly = await GetTranslation(rawData);
 
-                    long id = GetAirportNames(translationOnly.Trim());
+                    var result = GetAirportNames(translationOnly.Trim());
 
-                    if (id>0)
+                    if (result.id > 0)
                     {
-                        resp.FromId = id;
+                        resp.FromId = result.id;
                         resp.Success = true;
                         resp.Message = "Please, state your destination";
+                    }
+                    else if (result.id == -1) 
+                    {
+                        resp.FromId = result.id;
+                        resp.Success = false;
+                        resp.Message = result.Message;
                     }
                     else
                     {
@@ -82,21 +88,85 @@ namespace VoiceRecognition.Controllers
             }
         }
 
-        private long GetAirportNames(string names)
+        private (long id, string Message) GetAirportNames(string names)
         {
             try
             {
-                Airport airport = _context.Airports.Where(x => x.Name.Trim().ToLower() == names.Trim().ToLower()).FirstOrDefault();
-                if (airport != null)
+                string[] wordList = names.Split(' ');
+
+                Airport airport = new Airport();
+
+                bool validAirport = false;
+                bool validGo = false;
+                bool validWill = true;
+
+
+                if (wordList.Count() > 1)
                 {
-                    return airport.AirportID;
+                    foreach (var item in wordList)
+                    {
+                        if (!validAirport)
+                        {
+                            airport = _context.Airports.Where(x => x.Name.Trim().ToLower() == item.Trim().ToLower()).FirstOrDefault();
+                            if (airport != null)
+                            {
+                                validAirport = true;
+                            }
+                        }
+
+                        if (!validGo && item.Trim().ToLower() == "go")
+                        {
+                            validGo = true;
+                        }
+
+                        if (validWill && (item.Trim().ToLower() == "no" || item.Trim().ToLower() == "not"))
+                        {
+                            validWill = false;
+                        }
+                    }
+                    if (validWill)
+                    {
+
+                        if (validGo)
+                        {
+                            if (validAirport)
+                            {
+                                return (airport.AirportID, "valid");
+                            }
+                            else 
+                            {
+                                return (0, "Invalid Airport");
+                            }
+                        }
+                        else 
+                        {
+                            return (-1, "Irrevelant Information, I guess!");
+                        }
+                    }
+                    else
+                    {
+                        return (-1, "Not Going Anywhere!");
+                    }
+                }
+                else
+                {
+                    airport = _context.Airports.Where(x => x.Name.Trim().ToLower() == names.Trim().ToLower()).FirstOrDefault();
+
+                    if (airport != null)
+                    {
+                        return (airport.AirportID, "Valid");
+                    }
+                    else
+                    {
+                        return (0, "Invalid Airport");
+                    }
+
                 }
             }
             catch (Exception ex)
             {
-                return 0;
+                return (-1, ex.Message);
             }
-            return 0;
         }
 
         private async Task<string> GetTranslation(string voiceRendered)
