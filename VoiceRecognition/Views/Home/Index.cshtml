@@ -3,6 +3,17 @@
     ViewBag.Title = "Home Page";
 }
 
+@if (ViewBag.Message != null)
+{
+    <script type="text/javascript">
+
+            window.onload = function () {
+                alert("@ViewBag.Message");
+            };
+    </script>
+
+}
+
 <!-- Banner Section Start -->
 <section class="banner">
     <div class="banner-wrapper">
@@ -41,58 +52,60 @@
                                             <div class="itab-content active-itab" id="itab1">
                                                 <div class="icontent">
                                                     <div class="one-way">
-                                                        <form method="post" action="@Url.Action("SearchFlight","Home")">
+                                                        <form id="FlightSearchForm" method="post" action="@Url.Action("FlightSearch","Home")">
                                                             <div class="form-row">
                                                                 <div class="form-group col-md-4">
                                                                     @*<select class="form-control">
                                                                             <option selected="">From</option>
                                                                             <option>...</option>
                                                                         </select>*@
-                                                                    @Html.DropDownListFor(model => model.FromID, (SelectList)ViewBag.Airports, "From" , htmlAttributes: new { @class = "form-control" })
+                                                                    @Html.DropDownListFor(model => model.FromID, (SelectList)ViewBag.Airports, "From", htmlAttributes: new { @class = "form-control" })
                                                                     @Html.ValidationMessageFor(model => model.FromID, "", new { @class = "text-danger" })
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                                    @Html.DropDownListFor(model => model.ToID, (SelectList)ViewBag.Airports,"To", htmlAttributes: new { @class = "form-control" })
+                                                                    @Html.DropDownListFor(model => model.ToID, (SelectList)ViewBag.Airports, "To", htmlAttributes: new { @class = "form-control" })
                                                                     @Html.ValidationMessageFor(model => model.ToID, "", new { @class = "text-danger" })
                                                                 </div>
                                                                 <div class="form-group col-md-4">
-                                                                    <input placeholder="Depart"name="Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                                    @Html.TextBoxFor(model => model.Date,null, new { @id = "Date", @class = "form-control", @type = "Date" })
+                                                                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
+                                                                    @*<input placeholder="Depart" name="Date" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">*@
                                                                 </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <a href="javascript:void(0)" class="travelers">Travelers, Economy</a>
-                                                                    <div class="travelers-counter">
-                                                                        <!-- Adults Counter -->
-                                                                        <div class="inner-counter">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <p>Adults (12+) </p>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class='main-counter text-right'>
-                                                                                        <a class='cbtn cbtn1 down_count1' title='Down'><i class='fa fa-minus'></i></a>
-                                                                                        <input class='counter counter1' type="text" placeholder="value..." value='0' />
-                                                                                        <a class='cbtn cbtn1 up_count1' title='Up'><i class='fa fa-plus'></i></a>
-                                                                                    </div>
-                                                                                </div>
+                                                                <!--<div class="form-group col-md-4">
+                                                                <a href="javascript:void(0)" class="travelers">Travelers, Economy</a>
+                                                                <div class="travelers-counter">-->
+                                                                <!-- Adults Counter -->
+                                                                <!--<div class="inner-counter">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <p>Adults (12+) </p>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class='main-counter text-right'>
+                                                                                <a class='cbtn cbtn1 down_count1' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                <input class='counter counter1' type="text" placeholder="value..." value='0' />
+                                                                                <a class='cbtn cbtn1 up_count1' title='Up'><i class='fa fa-plus'></i></a>
                                                                             </div>
                                                                         </div>
-                                                                        <!-- Children  Counter -->
-                                                                        <div class="inner-counter">
-                                                                            <div class="row">
-                                                                                <div class="col-md-6">
-                                                                                    <p>Children  (2-11) </p>
-                                                                                </div>
-                                                                                <div class="col-md-6">
-                                                                                    <div class='main-counter text-right'>
-                                                                                        <a class='cbtn cbtn2 down_count2' title='Down'><i class='fa fa-minus'></i></a>
-                                                                                        <input class='counter counter2' type="text" placeholder="value..." value='0' />
-                                                                                        <a class='cbtn cbtn2 up_count2' title='Up'><i class='fa fa-plus'></i></a>
-                                                                                    </div>
-                                                                                </div>
+                                                                    </div>
+                                                                </div>-->
+                                                                <!-- Children  Counter -->
+                                                                <!--<div class="inner-counter">
+                                                                    <div class="row">
+                                                                        <div class="col-md-6">
+                                                                            <p>Children  (2-11) </p>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class='main-counter text-right'>
+                                                                                <a class='cbtn cbtn2 down_count2' title='Down'><i class='fa fa-minus'></i></a>
+                                                                                <input class='counter counter2' type="text" placeholder="value..." value='0' />
+                                                                                <a class='cbtn cbtn2 up_count2' title='Up'><i class='fa fa-plus'></i></a>
                                                                             </div>
                                                                         </div>
-                                                                        <!-- Infants  Counter -->
-                                                                        <div class="inner-counter">
+                                                                    </div>
+                                                                </div>-->
+                                                                <!-- Infants  Counter -->
+                                                                <!--<div class="inner-counter">
                                                                             <div class="row">
                                                                                 <div class="col-md-6">
                                                                                     <p>Infants (0-2) </p>
@@ -120,9 +133,13 @@
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="form-group col-md-4">
-                                                                    <a href="javascript:submit()" class="search">Search</a>
+                                                                </div>-->
+                                                                <!-- Button trigger modal -->
+
+                                                                <div class="form-group col-md-12">
+                                                                    <button type="submit" class="col-md-4 btn btn-warning pull-right">
+                                                                        Search
+                                                                    </button>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -337,10 +354,10 @@
                                                     <input placeholder="Destination" class="form-control" type="text" id="destination">
                                                 </div>
                                                 <div class="form-group col-md-3">
-                                                    <input placeholder="Check In" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                    @*<input placeholder="Check In" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">*@
                                                 </div>
                                                 <div class="form-group col-md-3">
-                                                    <input placeholder="Check Out" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">
+                                                    @*<input placeholder="Check Out" class="form-control" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" id="date">*@
                                                 </div>
                                                 <div class="form-group col-md-3">
                                                     <select class="form-control">
@@ -442,13 +459,10 @@
                                     Click on the microphone icon and begin speaking...
                                 </span>
                                 <span id="info_message">
-                                    
-                                </span>
-                                <span id="info_speak_now" style="display:none">
-                                    State your depurture location 
+                                    Please, state your depurture location
                                 </span>
                                 <span id="info_speak_now_Destination" style="display:none">
-                                    State your destionation 
+                                    State your destionation
                                 </span>
                                 <span id="info_speak_now_Date" style="display:none">
                                     State your depurture date
@@ -504,6 +518,9 @@
         </div>
     </div>
 </section>
+
+
+<script src="~/js/speechJS.js"></script>
 
 <script>
     $(document).ready(function () {

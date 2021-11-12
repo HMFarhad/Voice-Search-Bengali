@@ -256,8 +256,14 @@
     <Compile Include="Migrations\202111092128275_AirportModelAdded.designer.cs">
       <DependentUpon>202111092128275_AirportModelAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111112354598_airlinesAdded.cs" />
+    <Compile Include="Migrations\202111112354598_airlinesAdded.designer.cs">
+      <DependentUpon>202111112354598_airlinesAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Airline.cs" />
     <Compile Include="Models\Airport.cs" />
+    <Compile Include="Models\Flight.cs" />
     <Compile Include="Models\SyncResponse.cs" />
     <Compile Include="Models\VoiceSearchDBContext.cs" />
     <Compile Include="Models\VoiceSearchViewModel.cs" />
@@ -441,6 +447,7 @@
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\Test.cshtml" />
+    <Content Include="Views\Home\FlightSearch.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -461,6 +468,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202111092128275_AirportModelAdded.resx">
       <DependentUpon>202111092128275_AirportModelAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111112354598_airlinesAdded.resx">
+      <DependentUpon>202111112354598_airlinesAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

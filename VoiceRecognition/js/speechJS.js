@@ -137,7 +137,6 @@ if (!('webkitSpeechRecognition' in window)) {
 
     recognition.onstart = function () {
         recognizing = true;
-        showInfo('info_speak_now');
         start_img.src = 'https://www.google.com/intl/en/chrome/assets/common/images/content/mic-animate.gif';
     };
 
@@ -255,7 +254,7 @@ function startButton(event) {
     final_span.innerHTML = '';
     interim_span.innerHTML = '';
     start_img.src = 'https://www.google.com/intl/en/chrome/assets/common/images/content/mic-slash.gif';
-    showInfo('info_allow');
+    ShowHideMessage();
     showButtons('none');
     start_timestamp = event.timeStamp;
 }
@@ -283,18 +282,81 @@ function showButtons(style) {
 
 
 function SpeechSynthesis(rawData) {
+
+    var dateValue = $("#Date").val();
+
+    if ($("#FromID").val() > 0) {
+        if ($("#ToID").val() > 0) {
+            if (dateValue != null && dateValue != "undefined" && dateValue != "") {
+                document.getElementById("FlightSearchForm").submit();
+            }
+            else {
+                GetDate(rawData);
+            }
+        }
+        else {
+            GetDestination(rawData);
+        }
+    }
+    else {
+        GetDepurture(rawData);
+    }
+}
+
+function GetDepurture(rawData) {
     $.ajax({
-        url: '/Home/SyncSpeech',
+        url: '/Home/GetDepurture',
         type: "POST",
         data: { rawData },
         success: function (response) {
             if (response.Success) {
-                $("#FromID").val(response.FromId).change();
-                showInfo('info_speak_now_Destination');
+                if (response.FromId > 0) {
+                    $("#FromID").val(response.FromId).change();
+                }
+                if (response.ToId > 0) {
+                    $("#ToID").val(response.ToId).change();
+                }
+                if (response.DepurtureDate != null) {
+                    SetDepurtureDate(response.DepurtureDate);
+                }
+                ShowHideMessage();
             }
             else {
                 $("#info_message").text(response.Message);
                 showInfo('info_message');
+                startButton(event);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+            alert("Something went wrong! Please retry!");
+            startButton(event);
+        }
+    });
+}
+
+function GetDestination(rawData) {
+    $.ajax({
+        url: '/Home/GetDestination',
+        type: "POST",
+        data: { rawData },
+        success: function (response) {
+            if (response.Success) {
+                if (response.ToId > 0) {
+                    $("#ToID").val(response.ToId).change();
+                }
+                if (response.FromId > 0) {
+                    $("#FromID").val(response.FromId).change();
+                }
+                if (response.DepurtureDate != null) {
+                    SetDepurtureDate(response.DepurtureDate);
+                }
+                ShowHideMessage();
+            }
+            else {
+                $("#info_message").text(response.Message);
+                showInfo('info_speak_now_Destination');
+                startButton(event);
             }
         },
         error: function (jqXHR, textStatus, errorThrown) {
@@ -303,4 +365,77 @@ function SpeechSynthesis(rawData) {
             startButton(event);
         }
     });
+}
+
+function GetDate(rawData) {
+    $.ajax({
+        url: '/Home/GetDate',
+        type: "POST",
+        data: { rawData },
+        success: function (response) {
+            if (response.Success) {
+                if (response.DepurtureDate != null) {
+                    SetDepurtureDate(response.DepurtureDate);
+                }
+                ShowHideMessage();
+            }
+            else {
+                $("#info_message").text(response.Message);
+                showInfo('info_message');
+                startButton(event);
+            }
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            console.log(errorThrown);
+            alert("Something went wrong! Please retry!");
+            startButton(event);
+        }
+    });
+}
+
+function SetDepurtureDate(dDate) {
+    var date = new Date(parseInt(dDate.substr(6)));
+    date.setDate(date.getDate());
+
+    var today = new Date();
+    var formated = convert(date);
+
+    $("#Date").val(formated).change();
+
+}
+
+function convert(str) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join("-");
+}
+
+function ShowHideMessage() {
+    $("#info_message").text("");
+
+    var dateValue = $("#Date").val();
+
+    if ($("#FromID").val() > 0) {
+        if ($("#ToID").val() > 0) {
+            if (dateValue != null && dateValue != "undefined" && dateValue != "") {
+                document.getElementById("FlightSearchForm").submit();
+            }
+            else {
+                $("#info_message").text("Please state your depurture Date!");
+                showInfo('info_message');
+                startButton(event);
+            }
+        }
+        else {
+            $("#info_message").text("Please state your Destination!");
+            showInfo('info_message');
+            startButton(event);
+        }
+    }
+    else {
+        $("#info_message").text("Please state your Depurture location!");
+        showInfo('info_message');
+        startButton(event);
+    }
 }

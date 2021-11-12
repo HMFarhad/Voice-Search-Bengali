@@ -9,5 +9,6 @@ namespace VoiceRecognition.Models
     public class VoiceSearchDBContext:DbContext
     {
         public DbSet<Airport> Airports { get; set; }
+        public DbSet<Airline> Airlines { get; set; }
     }
 }
