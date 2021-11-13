@@ -104,8 +104,6 @@ namespace VoiceRecognition.Controllers
             }
         }
 
-
-
         [HttpPost]
         public async Task<JsonResult> GetDepurture(string rawData)
         {

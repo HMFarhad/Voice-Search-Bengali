@@ -280,7 +280,6 @@ function showButtons(style) {
     current_style = style;
 }
 
-
 function SpeechSynthesis(rawData) {
 
     var dateValue = $("#Date").val();
